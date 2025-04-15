@@ -7,6 +7,5 @@
 
     <typeAliases>
         <typeAlias type="com.app.restful.domain.MemberVO" alias="MemberVO" />
-        <typeAlias type="com.app.restful.domain.PostVO" alias="PostVO" />
     </typeAliases>
 </configuration>
