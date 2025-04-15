@@ -17,6 +17,9 @@ spring:
       jdbc-url: jdbc:oracle:thin:@//localhost:1521/XE
       username: hr
       password: 1234
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 
 thymeleaf:
   prefix=classpath: templates/
