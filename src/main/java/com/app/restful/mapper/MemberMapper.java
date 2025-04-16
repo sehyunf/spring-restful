@@ -9,4 +9,13 @@ import java.util.Optional;
 public interface MemberMapper {
 
     public Optional<MemberVO> select(Long id);
+
+    public Optional<MemberVO> selectOne(MemberVO memberVO);
+
+    public void insert(MemberVO memberVO);
+
+    public void update(MemberVO memberVO);
+
+    public void delete(Long id);
+
 }

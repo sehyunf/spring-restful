@@ -16,8 +16,11 @@
     </select>
 
     <insert id="insert" parameterType="PostVO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="Long">
+            SELECT SEQ_POST.NEXTVAL FROM DUAL
+        </selectKey>
         INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, MEMBER_ID)
-        VALUES (SEQ_POST.NEXTVAL, #{postTitle}, #{postContent}, #{memberId})
+        VALUES (#{id}, #{postTitle}, #{postContent}, #{memberId})
     </insert>
 
     <update id="update" parameterType="PostVO">
