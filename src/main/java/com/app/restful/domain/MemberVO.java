@@ -13,9 +13,9 @@ public class MemberVO implements Serializable {
     @Schema(description = "회원 번호", required = true, example = "41")
     private Long id;
     @Schema(description = "회원 이메일", required = true, example = "test0001@gmail.com")
-    private String MemberEmail;
+    private String memberEmail;
     @Schema(description = "회원 비밀번호", required = true, example = "비공개")
-    private String MemberPassword;
+    private String memberPassword;
     @Schema(description = "회원 이름", required = true, example = "홍길동")
-    private String MemberName;
+    private String memberName;
 }

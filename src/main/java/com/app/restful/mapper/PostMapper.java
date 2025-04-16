@@ -1,5 +1,6 @@
 package com.app.restful.mapper;
 
+import com.app.restful.domain.PostDTO;
 import com.app.restful.domain.PostVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,9 +10,17 @@ import java.util.Optional;
 @Mapper
 public interface PostMapper {
 //    게시글 목록
-    public List<PostVO> selectAll();
+    public List<PostDTO> selectAll();
 //    게시글 한개
-    public Optional<PostVO> selectById(Long id);
+    public Optional<PostDTO> selectById(Long id);
+
+    public void insert(PostVO postVO);
+
+    public void update(PostVO postVO);
+
+    public void delete(Long id);
+
+    public void deleteAll(Long memberId);
 
 
 }
