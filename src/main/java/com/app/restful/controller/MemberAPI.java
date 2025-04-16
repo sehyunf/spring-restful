@@ -46,6 +46,13 @@ public class MemberAPI {
 
     @Operation(summary = "회원가입", description = "회원가입할 수 있는 API")
     @ApiResponse(responseCode = "200", description = "회원가입 성공")
+    @Parameter(
+            name = "memberVO",
+            description = "회원 정보",
+            schema = @Schema(type = "object"),
+            in = ParameterIn.QUERY,
+            required = true
+    )
     @PostMapping("join")
     public MemberVO join(@RequestBody MemberVO memberVO) {
         memberService.join(memberVO);
@@ -81,11 +88,11 @@ public class MemberAPI {
             name = "id",
             description = "회원번호",
             schema = @Schema(type = "number"),
-            in = ParameterIn.PATH,
             required = true
     )
     @DeleteMapping("delete/{id}")
     public void delete(@PathVariable Long id) {
+//        세션에 저장된 회원의 아이디
         memberService.delete(id);
     }
 
