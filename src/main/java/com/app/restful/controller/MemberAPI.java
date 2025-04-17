@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -35,13 +36,15 @@ public class MemberAPI {
     }
 
     @Operation(summary = "로그인", description = "로그인할 수 있는 API")
+    @ApiResponse(responseCode = "200", description = "로그인 성공")
     @PostMapping("login")
-    public boolean login(MemberVO memberVO) {
+    public MemberVO login(MemberVO memberVO, HttpSession httpSession) {
         Optional<MemberVO> foundMember = memberService.login(memberVO);
         if(foundMember.isPresent()) {
-            return true;
+            httpSession.setAttribute("member", foundMember.get());
+            return foundMember.get();
         }
-        return false;
+        return new MemberVO();
     }
 
     @Operation(summary = "회원가입", description = "회원가입할 수 있는 API")
