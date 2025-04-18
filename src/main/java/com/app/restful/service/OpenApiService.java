@@ -1,18 +1,22 @@
 package com.app.restful.service;
 
+import com.app.restful.domain.CongestionData;
+import com.app.restful.domain.CongestionResponse;
 import com.app.restful.domain.PetTourDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.configurationprocessor.json.JSONArray;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,7 @@ import java.util.List;
 public class OpenApiService {
 
     private final PetTourDTO petTourDTO;
+    private final CongestionData congestionData;
     @Value("${api.base-url}")
     private String baseUrl;
 
@@ -90,7 +95,38 @@ public class OpenApiService {
 
     }
 
-//    URL
+//    Rest Templete
+
+    @Value("${api.base-url2}")
+    private String baseUrl2;
+
+    @Value("${api.congestion-20171231}")
+    private String congestion2017311;
+
+    public List<CongestionData> fetchData2() throws IOException, URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+
+//        URL
+        String url = baseUrl2 + congestion2017311;
+        String fullUrl = UriComponentsBuilder.fromHttpUrl(url)
+                .queryParam("serviceKey", serviceKey)
+                .queryParam("page", 1)
+                .queryParam("perpage", 10)
+                .queryParam("_type", "json")
+                .build()
+                .toString();
+
+        log.info("최종 요청 URL : {}", fullUrl);
+        URI uri = new URI(fullUrl);
+
+        CongestionResponse response = restTemplate.getForObject(uri, CongestionResponse.class);
+        log.info("{}", response);
+        List<CongestionData> datas = response.getData();
+
+        return datas;
+    }
+
+
 
 
 }
